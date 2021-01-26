@@ -7,45 +7,51 @@ public class ArrayDeque<Item> {
 
     public ArrayDeque() {
         items = (Item[]) new Object[16];
-        nextFirst = 0;
-        nextLast = 1;
+        nextFirst = 7;
+        nextLast = 8;
         size = 0;
     }
 
     public void resize(int capacity) {
         Item[] p = (Item[]) new Object[capacity];
         //TODO: make sure to copy the items to p such that p will get elements properly.
+
+
     }
 
-
-    //TODO: I need to consider usage ratio, 25%.
-
-    private void rotate(int index) {
-        if (index == nextFirst) {
-            if (nextFirst == 0) {
-                nextFirst = items.length - 1;
-            } else {
-                nextFirst -= 1;
-            }
-        } else {
-            if (nextLast + 1 == items.length) {
-                nextLast = 0;
-            } else {
-                nextLast += 1;
-            }
-        }
-    }
 
     public void addFirst(Item x) {
+        if (size * 4 > items.length) {
+            resize(items.length * 2);
+        }
         items[nextFirst] = x;
-        rotate(nextFirst);
+        nextFirst -= 1;
         size += 1;
     }
 
     public void addLast(Item x) {
+        if (size * 4 > items.length) {
+            resize(items.length * 2);
+        }
         items[nextLast] = x;
-        rotate(nextLast);
+        nextLast += 1;
         size += 1;
+    }
+
+    public Item removeFirst() {
+        if (size * 4 < items.length) {
+            resize(items.length / 2);
+        }
+        //TODO: logic needs to be stated
+        return null;
+    }
+
+    public Item removeLast() {
+        if (size * 4 < items.length) {
+            resize(items.length / 2);
+        }
+        //TODO: logic needs to be stated
+        return null;
     }
 
     public boolean isEmpty() {
